@@ -3,6 +3,7 @@
 Bot Telegram sederhana untuk otomatisasi dan fitur-fitur dasar menggunakan Telegram Bot API.
 
 ## ✨ Fitur
+
 - 📩 Respon pesan otomatis
 - 🧠 Command handler
 - 🔔 Notifikasi
@@ -10,6 +11,7 @@ Bot Telegram sederhana untuk otomatisasi dan fitur-fitur dasar menggunakan Teleg
 - 🔌 Siap diintegrasikan dengan API lain
 
 ## 🛠️ Teknologi
+
 - Telegram Bot API
 - Python
 - Library Bot telegram-bot-api
@@ -17,6 +19,9 @@ Bot Telegram sederhana untuk otomatisasi dan fitur-fitur dasar menggunakan Teleg
 ## 🚀 Cara Install & Jalankan
 
 ### 1. Clone Repository
+
 ```bash
 git clone https://github.com/Shin7222/botTele.git
 cd botTele
+./run.sh
+```
