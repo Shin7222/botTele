@@ -19,4 +19,5 @@ def create_app():
     register_idchek_handler(app)
     register_status_handler(app)
 
+
     return app
