@@ -7,8 +7,11 @@ from app.handlers.ytdl import register_ytdl_handlers
 from app.database.db import init_db
 from app.handlers.idchek import register_idchek_handler
 from app.handlers.status import register_status_handler
+from app.handlers.tt import ttdl_handler
 
 def create_app():
+
+    init_db()
     
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
@@ -18,6 +21,7 @@ def create_app():
     register_ytdl_handlers(app)
     register_idchek_handler(app)
     register_status_handler(app)
+    ttdl_handler(app)
 
 
     return app
