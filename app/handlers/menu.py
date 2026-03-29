@@ -51,27 +51,43 @@ Semoga harimu menyenangkan ✨
 
 🛡️ <b>Admin</b>
 • Total Admin : {admin_count}
-...
 
 ━━━━━━━━━━━━━━━━━━━
-📂 *Menu Utama*
+📂 <b>Menu Utama</b>
 ━━━━━━━━━━━━━━━━━━━
-1️⃣ Downloader
-2️⃣ Tools
-3️⃣ AI & Chat
-4️⃣ Search
-5️⃣ Fun & Game
-6️⃣ User Info
-7️⃣ Owner Menu
-8️⃣ Admin Menu
-9️⃣ Bot Info
+
+🎬 <b>Downloader</b>
+• /tt       (TikTok)
+• /ig       (Instagram)
+• /fb       (Facebook)
+• /tw       (Twitter / X)
+• /gdrive   (Google Drive)
+• /terabox  (Terabox)
+• /capcut   (Template CapCut)
+
+🧠 <b>Tools</b>
+• /compress   (Compress file)
+• /merge      (Gabung file/video)
+• /ss         (Screenshot website)
+• /sticker    (Buat sticker)
+• /watermark  (Tambah watermark)
+
+🎮 <b>Fun & Game</b>
+• /truth
+• /dare
+• /tod
+
+ℹ️ <b>Lainnya</b>
+• /menu
+• /help
 
 ━━━━━━━━━━━━━━━━━━━
-Ketik nomor menu
-Contoh: *1* untuk Downloader
+Ketik command langsung
+Contoh: <b>/tt</b>
 ━━━━━━━━━━━━━━━━━━━
 """
     return text
+
 
 async def show_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
