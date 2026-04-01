@@ -1,7 +1,7 @@
 {
   "name": "shinbot-js",
   "version": "1.0.0",
-  "description": "ShinBot Telegram Bot - Node.js",
+  "description": "ShinBot Telegram Bot - Node.js (Pure JS, no Python)",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,13 +9,13 @@
     "dev": "node --watch index.js"
   },
   "dependencies": {
-    "grammy": "^1.31.0",
-    "sql.js": "^1.12.0",
-    "dotenv": "^16.4.5",
-    "node-fetch": "^3.3.2",
-    "form-data": "^4.0.1",
-    "uuid": "^10.0.0",
     "@tobyg74/tiktok-api-dl": "^1.2.8",
-    "@distube/ytdl-core": "^4.16.9"
+    "dotenv": "^16.4.5",
+    "form-data": "^4.0.1",
+    "grammy": "^1.31.0",
+    "node-fetch": "^3.3.2",
+    "play-dl": "^1.9.7",
+    "sql.js": "^1.12.0",
+    "uuid": "^10.0.0"
   }
 }
