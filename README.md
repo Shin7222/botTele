@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ShinBot JS — Telegram Bot (Pure Node.js)
 
 ✅ **Zero Python dependency** — semua pakai JavaScript/Node.js murni.
@@ -108,3 +109,32 @@ src/
 | /menu | Menu lengkap |
 | /status | Status bot |
 | /idchek | Cek Telegram ID |
+=======
+# 🤖 botTele
+
+Bot Telegram sederhana untuk otomatisasi dan fitur-fitur dasar menggunakan Telegram Bot API.
+
+## ✨ Fitur
+
+- 📩 Respon pesan otomatis
+- 🧠 Command handler
+- 🔔 Notifikasi
+- ⚙️ Mudah dikembangkan
+- 🔌 Siap diintegrasikan dengan API lain
+
+## 🛠️ Teknologi
+
+- Telegram Bot API
+- Python
+- Library Bot telegram-bot-api
+
+## 🚀 Cara Install & Jalankan
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/Shin7222/botTele.git
+cd botTele
+./run.sh
+```
+>>>>>>> e852fb14da41dd5ac650716552567093eb7d2b63

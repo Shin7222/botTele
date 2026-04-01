@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 node_modules/
 .env
 bot.db
 data/
 downloads/
 *.log
+=======
+venv/
+__pycache__/
+*.db
+.env
+downloads/
+>>>>>>> e852fb14da41dd5ac650716552567093eb7d2b63
