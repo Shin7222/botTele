@@ -1,12 +1,20 @@
-import initSqlJs from 'sql.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import initSqlJs from "sql.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DB_PATH = path.join(__dirname, '../../bot.db');
+const DB_PATH = path.join(__dirname, "../../bot.db");
 
 let db;
+
+// Fungsi internal untuk menyimpan perubahan ke file fisik
+function save() {
+  if (db) {
+    const data = db.export();
+    fs.writeFileSync(DB_PATH, Buffer.from(data));
+  }
+}
 
 export async function initDb() {
   const SQL = await initSqlJs();
@@ -18,6 +26,7 @@ export async function initDb() {
     db = new SQL.Database();
   }
 
+  // 1. Tabel Users (Lama)
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       user_id INTEGER PRIMARY KEY,
@@ -28,25 +37,43 @@ export async function initDb() {
       last_download_date TEXT
     )
   `);
+
+  // 2. Tabel Pendaftar Event (BARU)
+  db.run(`
+    CREATE TABLE IF NOT EXISTS event_participants (
+      event_id TEXT,
+      user_id INTEGER,
+      username TEXT,
+      registered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (event_id, user_id)
+    )
+  `);
+
   save();
-  console.log('✅ Database initialized');
+  console.log("✅ Database initialized & Tables checked");
 }
 
-function save() {
-  const data = db.export();
-  fs.writeFileSync(DB_PATH, Buffer.from(data));
+// Helper untuk menjalankan query yang mengubah data (INSERT/UPDATE/DELETE)
+// Karena sql.js murni di memori, kita bungkus agar otomatis save()
+export function dbRun(query, params = []) {
+  db.run(query, params);
+  save();
 }
 
 export function checkLimit(userId) {
-  const today = new Date().toISOString().split('T')[0];
-  const stmt = db.prepare('SELECT is_premium, download_count, last_download_date FROM users WHERE user_id = ?');
+  const today = new Date().toISOString().split("T")[0];
+  const stmt = db.prepare(
+    "SELECT is_premium, download_count, last_download_date FROM users WHERE user_id = ?",
+  );
   stmt.bind([userId]);
   const user = stmt.step() ? stmt.getAsObject() : null;
   stmt.free();
 
   if (!user) {
-    db.run('INSERT INTO users (user_id, download_count, last_download_date) VALUES (?, 0, ?)', [userId, today]);
-    save();
+    dbRun(
+      "INSERT INTO users (user_id, download_count, last_download_date) VALUES (?, 0, ?)",
+      [userId, today],
+    );
     return { allowed: true, count: 0 };
   }
 
@@ -55,8 +82,10 @@ export function checkLimit(userId) {
   if (is_premium === 1) return { allowed: true, count: download_count };
 
   if (last_download_date !== today) {
-    db.run('UPDATE users SET download_count = 0, last_download_date = ? WHERE user_id = ?', [today, userId]);
-    save();
+    dbRun(
+      "UPDATE users SET download_count = 0, last_download_date = ? WHERE user_id = ?",
+      [today, userId],
+    );
     return { allowed: true, count: 0 };
   }
 
@@ -65,7 +94,7 @@ export function checkLimit(userId) {
     return {
       allowed: false,
       count: download_count,
-      message: `❌ Limit harian kamu sudah habis (${download_count}/${LIMIT}).\n\nUpgrade ke premium untuk unlimited! 👑`
+      message: `❌ Limit harian kamu sudah habis (${download_count}/${LIMIT}).\n\nUpgrade ke premium untuk unlimited! 👑`,
     };
   }
 
@@ -73,6 +102,13 @@ export function checkLimit(userId) {
 }
 
 export function incrementDownload(userId) {
-  db.run('UPDATE users SET download_count = download_count + 1 WHERE user_id = ?', [userId]);
-  save();
+  dbRun(
+    "UPDATE users SET download_count = download_count + 1 WHERE user_id = ?",
+    [userId],
+  );
+}
+
+// Fungsi pembantu untuk mengambil object DB
+export function getDb() {
+  return db;
 }
